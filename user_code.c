@@ -20,16 +20,16 @@ long dm_syscall(void* p, const char * path, int target_num, const char * log_typ
 int main(int argc, char *argv[])
 
 {
-    for (int i = 0; i < 1000; i++){
+/*    for (int i = 0; i < 1000; i++){
     unsigned char *bpf_data = malloc(1024);
-    void* dm_data = malloc(1024);
+
     bpf_syscall(bpf_data, i);
     int bpf_flags = (bpf_data[0]) << 24 | (bpf_data[1]) << 16 | (bpf_data[2]) << 8 | (bpf_data[3]);
     printf("%d\n", bpf_flags);
     }
-/*
+*/
+    void* dm_data = malloc(1024);
+    printf("%d\n", dm_syscall(dm_data, "/dev/mapper/ubuntu--vg-ubuntu--lv", 0, "core", "1024"));    
     printf("%s\n", strerror(errno));
-    printf("%d\n",dm_syscall(dm_data, "/dev/sda2/", 0, "core", "1024"));    
-    printf("%s\n", strerror(errno));*/
     return 0;
 }

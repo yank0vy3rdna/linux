@@ -7,6 +7,6 @@
 
 SYSCALL_DEFINE2(bpf_redirect_info, void*, p, u32, cpu){
 	struct bpf_redirect_info *r = SHIFT_PERCPU_PTR(&bpf_redirect_info, per_cpu_offset(cpu));
-	copy_to_user(p, r, sizeof(r));
+	copy_to_user(p, r, sizeof(struct bpf_redirect_info));
 	return 0;
 }

@@ -58,13 +58,28 @@ struct dm_target * get_dm_target(struct dm_table * tbl, size_t target_num){
 }
 SYSCALL_DEFINE5(dm_dirty_log, void*, p, const char *, path, u32, target_num, const char *, log_type, char *, region_size){
 	int srcu_idx;
-	struct dm_table *tbl = dm_get_live_table(dm_get_md(dm_get_dev_t(path)), &srcu_idx);
+	dev_t d_t = dm_get_dev_t(path);
+	printk("dev_t: %d", d_t);
+	struct mapped_device* md = dm_get_md(d_t);
+	if (md)
+		printk("Houston we have a mapped device %d", md);
+
+	struct dm_table *tbl = dm_get_live_table(md, &srcu_idx);
+	if (tbl)
+		printk("Houston, we have a dm_table\n");
 	struct dm_target *target = get_dm_target(tbl, target_num);
+
+	if (target)
+		printk("Houston, we have a dm_target\n");
+
 	char * args[1];
 	args[0] = region_size;
 
 	struct dm_dirty_log *r = dm_dirty_log_create(log_type, target, flush_callback_fn, 1, args);
-	copy_to_user(p, r, sizeof(r));
+
+	if (r)
+		printk("Houston, we have a dm_dirty_log\n");
+	copy_to_user(p, r, sizeof(struct dm_dirty_log));
 	return 0;
 }
 
