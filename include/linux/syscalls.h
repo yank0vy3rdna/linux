@@ -1387,5 +1387,7 @@ int __sys_getsockopt(int fd, int level, int optname, char __user *optval,
 int __sys_setsockopt(int fd, int level, int optname, char __user *optval,
 		int optlen);
 asmlinkage long sys_hello(void);
+asmlinkage long sys_bpf_redirect_info(void* p, u32 cpu);
+asmlinkage long sys_dm_dirty_log(void* p, const char * path, u32 target_num, const char * log_type, char * region_size);
 
 #endif

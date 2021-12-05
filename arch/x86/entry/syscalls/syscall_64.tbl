@@ -415,5 +415,7 @@
 546	x32	preadv2			compat_sys_preadv64v2
 547	x32	pwritev2		compat_sys_pwritev64v2
 548	64	hello			sys_hello
+549     64	bpf_redirect_info       sys_bpf_redirect_info
+550     64	dm_dirty_log            sys_dm_dirty_log
 # This is the end of the legacy x32 range.  Numbers 548 and above are
 # not special and are not to be used for x32-specific syscalls.
